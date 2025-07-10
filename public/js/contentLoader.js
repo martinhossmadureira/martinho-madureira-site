@@ -113,3 +113,41 @@ async function renderFeaturedHighlights() {
 document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
 
 // Exporta as funções caso queira usá-las em outras páginas (ex: para renderizar listas completas)
+// public/js/contentLoader.js
+
+// **Adicione 'export' aqui:**
+export async function fetchData(filePath) {
+    try {
+        const response = await fetch(filePath);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status} at ${filePath}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        return [];
+    }
+}
+
+// **Adicione 'export' aqui:**
+export function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('pt-BR', options);
+}
+
+// ... (o resto do seu código existing para renderFeaturedHighlights) ...
+
+// **Remova o comentário e/ou restaure esta linha:**
+// document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
+// Se você está usando import/export, o script precisa ser do tipo 'module'
+// e renderFeaturedHighlights deve ser chamada de outra forma ou exportada.
+// Para manter simples, vamos chamar no DOMContentLoaded se não for um módulo exportado
+// OU se você não estiver importando ele em outro lugar.
+// Se ele for importado, a chamada deve ser feita por quem o importa.
+
+// Para a sua página inicial, vamos manter a chamada direta
+document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
+
+// Opcional: Se você *realmente* quiser exportar renderFeaturedHighlights, adicione 'export' aqui também
+// export { fetchData, formatDate, renderFeaturedHighlights };
+// Mas para o seu caso atual, apenas fetchData e formatDate são importadas.
