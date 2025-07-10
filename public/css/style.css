@@ -383,3 +383,41 @@ section:nth-of-type(odd) {
 /* Crie uma pasta 'images' dentro de 'public' e coloque uma imagem chamada 'hero-bg.jpg' lá */
 /* Ex: public/images/hero-bg.jpg */
 /* Se não tiver uma imagem, a cor de fundo será usada. */
+/* ... seu CSS existente ... */
+
+/* Rodapé */
+.main-footer {
+    /* ... seu CSS existente para o footer ... */
+    display: flex; /* Use flexbox para alinhar itens */
+    flex-direction: column; /* Coloca os itens em coluna */
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente se houver espaço */
+}
+
+.main-footer .social-links {
+    margin-top: 10px; /* Adiciona um pequeno espaço acima dos ícones */
+    display: flex; /* Permite que os ícones fiquem um ao lado do outro */
+    gap: 15px; /* Espaçamento entre os ícones */
+}
+
+.main-footer .social-links a {
+    color: var(--light-text-color); /* Cor dos ícones */
+    font-size: 1.8em; /* Aumenta o tamanho dos ícones */
+    width: 40px; /* Define uma largura fixa para cada ícone */
+    height: 40px; /* Define uma altura fixa para cada ícone */
+    display: flex; /* Usa flexbox para centralizar o ícone dentro do quadrado */
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Uma borda sutil */
+    border-radius: 50%; /* Faz a borda circular */
+    transition: all 0.3s ease; /* Transição para a animação */
+}
+
+.main-footer .social-links a:hover {
+    color: var(--accent-color); /* Cor ao passar o mouse */
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil ao passar o mouse */
+    transform: translateY(-3px) scale(1.1); /* Animação: levanta e aumenta um pouco */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Sombra ao passar o mouse */
+}
+
+/* ... o resto do seu CSS ... */
