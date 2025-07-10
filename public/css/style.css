@@ -385,39 +385,64 @@ section:nth-of-type(odd) {
 /* Se não tiver uma imagem, a cor de fundo será usada. */
 /* ... seu CSS existente ... */
 
+/* ... (seu código anterior no public/css/style.css) ... */
+
 /* Rodapé */
 .main-footer {
-    /* ... seu CSS existente para o footer ... */
-    display: flex; /* Use flexbox para alinhar itens */
-    flex-direction: column; /* Coloca os itens em coluna */
-    align-items: center; /* Centraliza horizontalmente */
-    justify-content: center; /* Centraliza verticalmente se houver espaço */
+    background: var(--bg-dark);
+    color: var(--light-text-color);
+    text-align: center;
+    padding: var(--spacing-md) 0;
+    border-top: 3px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-footer p {
+    margin-bottom: var(--spacing-sm);
 }
 
 .main-footer .social-links {
-    margin-top: 10px; /* Adiciona um pequeno espaço acima dos ícones */
-    display: flex; /* Permite que os ícones fiquem um ao lado do outro */
-    gap: 15px; /* Espaçamento entre os ícones */
+    margin-top: 15px;
+    display: flex;
+    gap: 12px; /* Espaçamento entre os ícones */
+    flex-wrap: wrap; /* Permite quebrar linha em telas muito pequenas */
+    justify-content: center;
 }
 
+/* **NOVO ESTILO PARA IMAGENS PNG DOS ÍCONES** */
 .main-footer .social-links a {
-    color: var(--light-text-color); /* Cor dos ícones */
-    font-size: 1.8em; /* Aumenta o tamanho dos ícones */
-    width: 40px; /* Define uma largura fixa para cada ícone */
-    height: 40px; /* Define uma altura fixa para cada ícone */
-    display: flex; /* Usa flexbox para centralizar o ícone dentro do quadrado */
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Uma borda sutil */
-    border-radius: 50%; /* Faz a borda circular */
-    transition: all 0.3s ease; /* Transição para a animação */
+    display: block; /* Garante que o link se comporte como um bloco para conter a imagem */
+    width: 35px; /* Largura do contêiner do ícone */
+    height: 35px; /* Altura do contêiner do ícone */
+    border-radius: 50%; /* Se quiser um efeito de círculo ao redor do ícone */
+    overflow: hidden; /* Garante que a imagem não vaze do círculo */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição para animação */
+    text-decoration: none; /* Remove sublinhado do link */
+    padding: 2px; /* Adiciona um pequeno padding interno para a imagem não colar na borda */
+}
+
+.main-footer .social-links a img {
+    width: 100%; /* A imagem preenche a largura do contêiner do link */
+    height: 100%; /* A imagem preenche a altura do contêiner do link */
+    object-fit: contain; /* Redimensiona a imagem para caber dentro, mantendo a proporção */
+    display: block; /* Remove espaços extras abaixo da imagem */
+    filter: invert(0%) brightness(100%); /* Mantém a cor original ou ajusta se quiser */
 }
 
 .main-footer .social-links a:hover {
-    color: var(--accent-color); /* Cor ao passar o mouse */
-    background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil ao passar o mouse */
     transform: translateY(-3px) scale(1.1); /* Animação: levanta e aumenta um pouco */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Sombra ao passar o mouse */
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); /* Sombra ao passar o mouse */
 }
 
-/* ... o resto do seu CSS ... */
+/* Media query para telas menores - ajustar ainda mais se necessário */
+@media (max-width: 480px) {
+    .main-footer .social-links a {
+        width: 30px; /* Ainda menor em telas muito pequenas */
+        height: 30px;
+    }
+}
+
+/* ... (o resto do seu CSS) ... */
