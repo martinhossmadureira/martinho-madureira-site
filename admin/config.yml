@@ -1,0 +1,85 @@
+backend:
+  name: git-gateway
+  branch: main # Altere para 'master' se essa for sua branch principal no GitHub
+
+media_folder: "public/uploads" # Pasta onde as imagens e arquivos serão salvos
+public_folder: "/uploads" # Caminho público para as imagens no seu site
+
+collections:
+  - name: "estudos" # Nome da coleção (usado internamente no CMS)
+    label: "Estudos Bíblicos" # Título visível no painel do CMS
+    folder: "content/estudos" # Pasta onde os arquivos Markdown/JSON dos estudos serão salvos
+    create: true # Permite criar novos estudos
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Formato do nome do arquivo (ex: 2025-07-10-meu-estudo.md)
+    format: "frontmatter" # Formato dos arquivos (Markdown com frontmatter)
+    fields: # Campos para cada estudo
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: true}
+      - {label: "Imagem de Destaque", name: "thumbnail", widget: "image", required: false}
+      - {label: "Autor", name: "author", widget: "string", default: "Martinho S. S. Madureira", required: true}
+      - {label: "Série (Opcional)", name: "series", widget: "string", required: false}
+      - {label: "Versículo Chave (Opcional)", name: "key_verse", widget: "string", required: false}
+      - {label: "Destaque na Home?", name: "featured", widget: "boolean", default: false}
+      - {label: "Corpo do Estudo", name: "body", widget: "markdown", required: true}
+
+  - name: "artigos"
+    label: "Artigos / Blog"
+    folder: "content/artigos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "frontmatter"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: true}
+      - {label: "Imagem de Destaque", name: "thumbnail", widget: "image", required: false}
+      - {label: "Autor", name: "author", widget: "string", default: "Martinho S. S. Madureira", required: true}
+      - {label: "Tags (separadas por vírgula)", name: "tags", widget: "string", required: false}
+      - {label: "Destaque na Home?", name: "featured", widget: "boolean", default: false}
+      - {label: "Corpo do Artigo", name: "body", widget: "markdown", required: true}
+
+  - name: "videos"
+    label: "Vídeos"
+    folder: "content/videos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "frontmatter"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "ID do YouTube", name: "youtube_id", widget: "string", hint: "Ex: 'dQw4w9WgXcQ' (apenas o ID do vídeo)", required: true}
+      - {label: "Descrição", name: "description", widget: "text", required: false}
+      - {label: "Data de Publicação", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: true}
+      - {label: "Destaque na Home?", name: "featured", widget: "boolean", default: false}
+
+  - name: "eventos"
+    label: "Eventos"
+    folder: "content/eventos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "frontmatter"
+    fields:
+      - {label: "Título", name: "title", widget: "string", required: true}
+      - {label: "Data e Hora", name: "datetime", widget: "datetime", required: true}
+      - {label: "Local", name: "location", widget: "string", required: false}
+      - {label: "Imagem do Evento", name: "image", widget: "image", required: false}
+      - {label: "Link Externo (Opcional)", name: "external_link", widget: "string", required: false}
+      - {label: "Destaque na Home?", name: "featured", widget: "boolean", default: false}
+      - {label: "Descrição", name: "body", widget: "markdown", required: true}
+
+  - name: "paginas"
+    label: "Páginas Fixas"
+    files:
+      - file: "content/pages/sobre-mim.md"
+        label: "Sobre Mim"
+        name: "about"
+        fields:
+          - {label: "Título da Página", name: "title", widget: "string", required: true}
+          - {label: "Conteúdo", name: "body", widget: "markdown", required: true}
+      - file: "content/pages/doacoes.md"
+        label: "Doações"
+        name: "donations"
+        fields:
+          - {label: "Título da Página", name: "title", widget: "string", required: true}
+          - {label: "Texto Informativo", name: "intro_text", widget: "markdown", required: true}
+          - {label: "Coordenadas Bancárias", name: "bank_details", widget: "markdown", required: true}
+          - {label: "Objetivo Atual da Doação (Ex: Construção da Igreja)", name: "donation_goal_title", widget: "string", required: false}
+          - {label: "Valor Arrecadado (Ex: R$ 5.000,00)", name: "amount_raised", widget: "string", required: false}

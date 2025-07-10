@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martinho S. S. Madureira | Seu Site Oficial Cristão</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> </head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">Martinho S. S. Madureira</a></h1>
+                </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="estudos.html">Estudos Bíblicos</a></li>
+                    <li><a href="artigos.html">Artigos / Blog</a></li>
+                    <li><a href="videos.html">Vídeos</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="doacoes.html">Doações</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="sobre-mim.html">Sobre Mim</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Abrir Menu">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Seja Bem-vindo (a)!</h2>
+                <p>Compartilhando a Palavra, inspirando vidas e edificando a fé em Cristo Jesus.</p>
+                <a href="sobre-mim.html" class="btn">Conheça um pouco mais Sobre Mim</a>
+            </div>
+        </section>
+
+        <section class="featured-content">
+            <div class="container">
+                <h3>Últimos Destaques</h3>
+                <div class="highlight-grid" id="featured-highlights">
+                    <p>Carregando destaques...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Aprofunde-se na Palavra</h2>
+                <p>Explore nossos estudos, artigos e vídeos para fortalecer sua caminhada.</p>
+                <a href="estudos.html" class="btn btn-secondary">Ver Estudos Bíblicos</a>
+                <a href="videos.html" class="btn btn-secondary">Assistir Vídeos</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Martinho S. S. Madureira. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/martinhossmadureira?igsh=bjM2bHUxMTFxc2px" target="_blank">
+                    <img src="../public/images/icons/instagram.png" alt="Instagram">
+                </a>
+                <a href="https://www.tiktok.com/@martinhossmadureira" target="_blank">
+                    <img src="../public/images/icons/tiktok.png" alt="TikTok">
+                </a>
+                <a href="https://www.youtube.com/@martinhossmadureira" target="_blank">
+                    <img src="../public/images/icons/youtube.png" alt="YouTube">
+                <a href="https://wa.me/244927791547" target="_blank">
+                    <img src="../public/images/icons/whatsapp.png" alt="Whatsapp">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100083436668190" target="_blank">
+                    <img src="../public/images/icons/facebook.png" alt="Facebook">
+                </a>
+                </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/contentLoader.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="https://kit.fontawesome.com/SUA_KIT_CODE.js" crossorigin="anonymous"></script>
+</body>
+</html>
