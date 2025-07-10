@@ -113,4 +113,3 @@ async function renderFeaturedHighlights() {
 document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
 
 // Exporta as funções caso queira usá-las em outras páginas (ex: para renderizar listas completas)
-export { fetchData, formatDate, renderFeaturedHighlights };
