@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node scripts/process-content.js",
+    "build": "node scripts/process-content.js && cp -R public/. .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
