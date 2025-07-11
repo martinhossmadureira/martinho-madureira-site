@@ -30,3 +30,27 @@ document.addEventListener('DOMContentLoaded', function() {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 });
+// public/js/main.js
+
+// Garante que o DOM está carregado antes de manipular elementos
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('active'); // Para animar o ícone X
+        });
+
+        // Opcional: Fecha o menu se um link for clicado (útil em SPAs ou para rolagem suave)
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+    } else {
+        console.warn("Elementos .menu-toggle ou .main-nav não encontrados. Menu mobile pode não funcionar.");
+    }
+});

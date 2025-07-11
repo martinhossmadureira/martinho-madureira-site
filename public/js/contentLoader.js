@@ -34,7 +34,7 @@ async function renderFeaturedHighlights() {
     const collections = [
         { type: 'estudos', title: 'Estudos Bíblicos' },
         { type: 'artigos', title: 'Artigos' },
-        { type: 'videos', title: 'Vídeos' }
+        { type: 'videos', title: 'Vídeos' },
         { type: 'eventos', title: 'Eventos' } // Adicione esta linha para eventos
     ];
 
