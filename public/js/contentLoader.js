@@ -1,7 +1,7 @@
 // public/js/contentLoader.js
 
 // Função genérica para buscar dados JSON
-async function fetchData(filePath) {
+export async function fetchData(filePath) {
     try {
         const response = await fetch(filePath);
         if (!response.ok) {
@@ -15,7 +15,7 @@ async function fetchData(filePath) {
 }
 
 // Função para formatar data (opcional, para exibir de forma mais legível)
-function formatDate(dateString) {
+export function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('pt-BR', options);
 }
@@ -114,31 +114,6 @@ document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
 
 // Exporta as funções caso queira usá-las em outras páginas (ex: para renderizar listas completas)
 // public/js/contentLoader.js
-// public/js/contentLoader.js
-
-export async function fetchData(filePath) { // Adicionado 'export'
-    try {
-        const response = await fetch(filePath);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status} at ${filePath}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-        return [];
-    }
-}
-
-export function formatDate(dateString) { // Adicionado 'export'
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('pt-BR', options);
-}
-
-// ... (o resto do seu código, incluindo renderFeaturedHighlights) ...
-
-// Esta chamada para renderFeaturedHighlights pode ficar aqui ou ser gerenciada externamente
-// se contentLoader.js for importado em outro lugar que chame essa função.
-// Para simplificar, mantenha a chamada aqui para a página inicial.
 document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
 // **Adicione 'export' aqui:**
 export async function fetchData(filePath) {
