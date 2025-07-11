@@ -1,6 +1,6 @@
 // public/js/contentLoader.js
 
-// Função genérica para buscar dados JSON
+// Função para buscar dados de um arquivo JSON
 export async function fetchData(filePath) {
     try {
         const response = await fetch(filePath);
@@ -10,144 +10,89 @@ export async function fetchData(filePath) {
         return await response.json();
     } catch (error) {
         console.error("Erro ao buscar dados:", error);
-        return []; // Retorna um array vazio em caso de erro
+        return []; // Retorna um array vazio em caso de erro para evitar quebrar o restante do código
     }
 }
 
-// Função para formatar data (opcional, para exibir de forma mais legível)
+// Função para formatar a data
 export function formatDate(dateString) {
+    if (!dateString) return ''; // Retorna vazio se a data não for fornecida
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('pt-BR', options);
 }
 
-// Renderiza os destaques na página inicial
+// Função para renderizar os destaques na página inicial
 async function renderFeaturedHighlights() {
-    const highlightsContainer = document.getElementById('featured-highlights');
-    if (!highlightsContainer) return;
+    const featuredHighlightsContainer = document.getElementById('featured-highlights');
+    if (!featuredHighlightsContainer) {
+        // console.warn("Elemento #featured-highlights não encontrado. Verifique o HTML da página inicial.");
+        return; // Não faz nada se o container não existe
+    }
 
-    highlightsContainer.innerHTML = '<p>Carregando destaques...</p>'; // Mensagem de carregamento
+    featuredHighlightsContainer.innerHTML = '<h2>Carregando destaques...</h2>'; // Mensagem de carregamento
 
-    let allHighlights = [];
+    const collections = [
+        { type: 'estudos', title: 'Estudos Bíblicos' },
+        { type: 'artigos', title: 'Artigos' },
+        { type: 'videos', title: 'Vídeos' }
+        // Adicione outras coleções aqui se necessário (ex: { type: 'eventos', title: 'Eventos' })
+    ];
 
-    // Busca dados de todas as coleções que podem ter destaque
-    const estudos = await fetchData('data/estudos.json');
-    const artigos = await fetchData('data/artigos.json');
-    const videos = await fetchData('data/videos.json');
-    const eventos = await fetchData('data/eventos.json');
+    let allFeaturedItems = [];
 
-    // Filtra e prepara os itens para destaque
-    estudos.filter(item => item.featured).forEach(item => {
-        allHighlights.push({
-            type: 'Estudo Bíblico',
-            title: item.title,
-            date: item.date,
-            thumbnail: item.thumbnail,
-            url: item.url,
-            description: item.body ? item.body.substring(0, 150) + '...' : '' // Pega um pedaço do corpo
-        });
+    // Busca dados de todas as coleções
+    for (const collection of collections) {
+        try {
+            const data = await fetchData(`data/${collection.type}.json`);
+            const featured = data.filter(item => item.featured && item.published);
+            // Adiciona o tipo de coleção a cada item para saber de onde ele veio
+            const itemsWithType = featured.map(item => ({ ...item, collectionType: collection.type }));
+            allFeaturedItems = allFeaturedItems.concat(itemsWithType);
+        } catch (error) {
+            console.error(`Falha ao carregar destaques de ${collection.title}:`, error);
+        }
+    }
+
+    // Ordena os itens destacados pela data mais recente (se a data existir)
+    allFeaturedItems.sort((a, b) => {
+        const dateA = a.date ? new Date(a.date) : new Date(0); // Usa epoch se data for nula
+        const dateB = b.date ? new Date(b.date) : new Date(0);
+        return dateB - dateA;
     });
 
-    artigos.filter(item => item.featured).forEach(item => {
-        allHighlights.push({
-            type: 'Artigo',
-            title: item.title,
-            date: item.date,
-            thumbnail: item.thumbnail,
-            url: item.url,
-            description: item.body ? item.body.substring(0, 150) + '...' : ''
-        });
-    });
+    // Pega apenas os 3 primeiros ou quantos você deseja exibir
+    const itemsToDisplay = allFeaturedItems.slice(0, 3); // Exibe os 3 mais recentes
 
-    videos.filter(item => item.featured).forEach(item => {
-        allHighlights.push({
-            type: 'Vídeo',
-            title: item.title,
-            date: item.date,
-            thumbnail: item.custom_thumbnail || `https://img.youtube.com/vi/${item.youtube_id}/mqdefault.jpg`, // Tenta thumbnail personalizada ou do YouTube
-            url: item.url,
-            description: item.description ? item.description.substring(0, 150) + '...' : ''
-        });
-    });
-
-    eventos.filter(item => item.featured).forEach(item => {
-        allHighlights.push({
-            type: 'Evento',
-            title: item.title,
-            date: item.datetime, // Eventos usam 'datetime'
-            thumbnail: item.image,
-            url: item.url,
-            description: item.body ? item.body.substring(0, 150) + '...' : ''
-        });
-    });
-
-    // Ordena os destaques por data (mais recente primeiro)
-    allHighlights.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    // Exibe apenas os 6 destaques mais recentes (ou quantos você quiser)
-    const displayHighlights = allHighlights.slice(0, 6);
-
-    if (displayHighlights.length === 0) {
-        highlightsContainer.innerHTML = '<p>Nenhum destaque disponível no momento.</p>';
+    if (itemsToDisplay.length === 0) {
+        featuredHighlightsContainer.innerHTML = '<p class="no-content-message">Nenhum destaque encontrado no momento. Volte em breve para novidades!</p>';
         return;
     }
 
-    highlightsContainer.innerHTML = ''; // Limpa a mensagem de carregamento
+    let highlightsHtml = '<h2 class="section-title">Destaques Recentes</h2><div class="highlights-grid">';
 
-    displayHighlights.forEach(highlight => {
-        const itemHtml = `
+    itemsToDisplay.forEach(item => {
+        // Gera o URL para a página de detalhes, passando o tipo da coleção e o slug
+        const detailUrl = `detalhe.html?tipo=${item.collectionType}&slug=${item.slug}`;
+
+        highlightsHtml += `
             <div class="highlight-item">
-                <img src="${highlight.thumbnail || 'https://via.placeholder.com/400x200?text=Sem+Imagem'}" alt="${highlight.title}">
-                <div class="highlight-item-content">
-                    <h4>${highlight.title}</h4>
-                    <p class="item-meta">${highlight.type} | ${formatDate(highlight.date)}</p>
-                    <p>${highlight.description}</p>
-                    <a href="${highlight.url}" class="btn">Ver Mais</a>
-                </div>
+                <a href="${detailUrl}" class="highlight-link">
+                    ${item.thumbnail ? `<img src="${item.thumbnail}" alt="${item.title}" class="highlight-thumbnail">` : ''}
+                    <div class="highlight-content">
+                        <h3 class="highlight-title">${item.title}</h3>
+                        <p class="highlight-date">${item.date ? formatDate(item.date) : 'Data não disponível'}</p>
+                        <p class="highlight-description">${item.description || 'Clique para ler mais...'}</p>
+                        <span class="read-more">Leia Mais &rarr;</span>
+                    </div>
+                </a>
             </div>
         `;
-        highlightsContainer.insertAdjacentHTML('beforeend', itemHtml);
     });
+
+    highlightsHtml += '</div>'; // Fecha highlights-grid
+    featuredHighlightsContainer.innerHTML = highlightsHtml;
 }
 
-// Chama a função de renderização quando o DOM estiver pronto
+// CHAME A FUNÇÃO DE RENDERIZAÇÃO QUANDO O DOM ESTIVER PRONTO
+// Esta linha é para a página inicial onde os destaques são renderizados.
 document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
-
-// Exporta as funções caso queira usá-las em outras páginas (ex: para renderizar listas completas)
-// public/js/contentLoader.js
-document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
-// **Adicione 'export' aqui:**
-export async function fetchData(filePath) {
-    try {
-        const response = await fetch(filePath);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status} at ${filePath}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-        return [];
-    }
-}
-
-// **Adicione 'export' aqui:**
-export function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('pt-BR', options);
-}
-
-// ... (o resto do seu código existing para renderFeaturedHighlights) ...
-
-// **Remova o comentário e/ou restaure esta linha:**
-// document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
-// Se você está usando import/export, o script precisa ser do tipo 'module'
-// e renderFeaturedHighlights deve ser chamada de outra forma ou exportada.
-// Para manter simples, vamos chamar no DOMContentLoaded se não for um módulo exportado
-// OU se você não estiver importando ele em outro lugar.
-// Se ele for importado, a chamada deve ser feita por quem o importa.
-
-// Para a sua página inicial, vamos manter a chamada direta
-document.addEventListener('DOMContentLoaded', renderFeaturedHighlights);
-
-// Opcional: Se você *realmente* quiser exportar renderFeaturedHighlights, adicione 'export' aqui também
-// export { fetchData, formatDate, renderFeaturedHighlights };
-// Mas para o seu caso atual, apenas fetchData e formatDate são importadas.

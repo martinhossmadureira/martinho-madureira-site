@@ -244,40 +244,49 @@ section:nth-of-type(odd) {
 /* --- Seção de Chamada para Ação (CTA) --- */
 .cta-section {
     background: linear-gradient(to right, var(--primary-color), var(--accent-color)); /* Gradiente de cor */
-    padding: var(--spacing-lg) 0; /* Espaçamento interno generoso */
+    padding: var(--spacing-lg) var(--spacing-md); /* Espaçamento interno vertical e horizontal */
     text-align: center;
     color: var(--light-text-color); /* Cor do texto claro para contraste */
-    border-radius: 8px; /* Cantos levemente arredondados */
-    margin: var(--spacing-xl) auto; /* Margem externa, centraliza */
-    max-width: 90%; /* Limita a largura para melhor leitura */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra suave para profundidade */
+    /* Removido border-radius e box-shadow diretamente na seção para responsividade full-width */
+    /* Cantos arredondados e sombra podem ser adicionados a um container interno se desejar */
+    margin: var(--spacing-xl) 0; /* Margem externa vertical, sem margem lateral */
+    width: 100%; /* Ocupa 100% da largura do pai */
+    box-sizing: border-box; /* Garante que padding não adicione largura extra */
+}
+
+.cta-section .container {
+    /* Adicionado para garantir que o conteúdo interno esteja centralizado e com largura máxima */
+    max-width: 1100px; /* Largura máxima do conteúdo dentro da seção */
+    margin: 0 auto; /* Centraliza o conteúdo dentro da seção */
+    padding: 0 var(--spacing-md); /* Adiciona padding interno para evitar que o conteúdo cole nas bordas */
 }
 
 .cta-section h2 {
-    font-size: 2.5rem; /* Título maior */
+    font-size: 2.5rem;
     margin-bottom: var(--spacing-sm);
-    color: var(--light-text-color); /* Garante a cor clara */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); /* Leve sombra no texto para visibilidade */
+    color: var(--light-text-color);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .cta-section p {
-    font-size: 1.2rem; /* Texto do parágrafo maior */
-    margin-bottom: var(--spacing-lg); /* Mais espaço antes dos botões */
-    color: var(--light-text-color); /* Garante a cor clara */
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--light-text-color);
     max-width: 700px; /* Limita a largura do parágrafo */
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.6; /* Aumenta o espaçamento entre linhas */
+    line-height: 1.6;
 }
 
 .cta-section .btn-secondary {
-    /* Seus estilos existentes para .btn-secondary serão aplicados */
-    /* Podemos adicionar um pouco mais de espaçamento entre eles se quiser */
-    margin: 0 10px; /* Espaço entre os botões */
+    margin: 0 10px;
 }
 
-/* Media queries para responsividade */
+/* Media queries para responsividade (ajustadas para o novo comportamento) */
 @media (max-width: 768px) {
+    .cta-section {
+        padding: var(--spacing-md) var(--spacing-sm); /* Menos padding horizontal em telas menores */
+    }
     .cta-section h2 {
         font-size: 2rem;
     }
@@ -285,16 +294,15 @@ section:nth-of-type(odd) {
         font-size: 1rem;
     }
     .cta-section .btn-secondary {
-        display: block; /* Botões em coluna em telas menores */
-        margin: 10px auto; /* Centraliza e espaça */
-        width: 80%; /* Ocupa mais largura */
+        display: block;
+        margin: 10px auto;
+        width: 80%;
     }
 }
 
 @media (max-width: 480px) {
     .cta-section {
-        padding: var(--spacing-md) 0;
-        margin: var(--spacing-lg) auto;
+        padding: var(--spacing-sm) var(--spacing-xs); /* Ainda menos padding em telas muito pequenas */
     }
     .cta-section h2 {
         font-size: 1.8rem;
