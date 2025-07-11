@@ -44,7 +44,8 @@ async function renderFeaturedHighlights() {
     for (const collection of collections) {
         try {
             const data = await fetchData(`data/${collection.type}.json`);
-            const featured = data.filter(item => item.featured && item.published);
+           // Filtra por 'featured: true'. Se 'published' não existe ou é true, ele passa.
+            const featured = data.filter(item => item.featured); // Simplificado para focar apenas em 'featured'
             // Adiciona o tipo de coleção a cada item para saber de onde ele veio
             const itemsWithType = featured.map(item => ({ ...item, collectionType: collection.type }));
             allFeaturedItems = allFeaturedItems.concat(itemsWithType);
