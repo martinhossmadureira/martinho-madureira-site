@@ -35,7 +35,7 @@ async function renderFeaturedHighlights() {
         { type: 'estudos', title: 'Estudos Bíblicos' },
         { type: 'artigos', title: 'Artigos' },
         { type: 'videos', title: 'Vídeos' }
-        // Adicione outras coleções aqui se necessário (ex: { type: 'eventos', title: 'Eventos' })
+        { type: 'eventos', title: 'Eventos' } // Adicione esta linha para eventos
     ];
 
     let allFeaturedItems = [];
