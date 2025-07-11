@@ -1,5 +1,3 @@
-// public/js/detailPage.js - OPÇÃO B
-import { marked } from 'marked'; // Importa marked como um módulo
 import { fetchData, formatDate } from './contentLoader.js';
 
 document.addEventListener('DOMContentLoaded', async () => {

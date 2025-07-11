@@ -600,3 +600,88 @@ section:nth-of-type(odd) {
         transform: translateY(-8px) rotate(-45deg);
     }
 }
+/* --- Seção Hero --- */
+.hero-section {
+    position: relative; /* Essencial para posicionar a sobreposição e imagens */
+    height: 60vh; /* Altura da seção, ajuste conforme necessário */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-text-color);
+    text-align: center;
+    overflow: hidden; /* Garante que as imagens não transbordem */
+}
+
+/* Camada para as imagens de fundo */
+.hero-backgrounds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 1.5s ease-in-out; /* Transição suave entre imagens */
+    z-index: 1; /* Abaixo do conteúdo e sobreposição */
+}
+
+.hero-backgrounds.active {
+    opacity: 1; /* Imagem ativa fica visível */
+}
+
+/* Sobreposição escura para melhorar a legibilidade do texto */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semi-transparente */
+    z-index: 2; /* Acima das imagens, abaixo do conteúdo */
+}
+
+/* Conteúdo da hero-section (textos e botões) */
+.hero-section .container {
+    position: relative; /* Essencial para o conteúdo ficar acima da sobreposição */
+    z-index: 3; /* Acima da sobreposição */
+    max-width: 800px; /* Limita a largura do texto para melhor leitura */
+}
+
+.hero-section h2 {
+    font-size: 3.5rem;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra para o texto */
+}
+
+.hero-section p {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-lg);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Media Queries para responsividade da Hero Section */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 50vh; /* Ajuste a altura em telas menores */
+    }
+    .hero-section h2 {
+        font-size: 2.5rem;
+    }
+    .hero-section p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        height: 40vh; /* Ainda menor em celulares */
+    }
+    .hero-section h2 {
+        font-size: 2rem;
+    }
+    .hero-section p {
+        font-size: 1rem;
+    }
+}
