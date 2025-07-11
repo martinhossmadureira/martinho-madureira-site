@@ -1,10 +1,11 @@
-// public/js/detailPage.js
-import { fetchData, formatDate } from './contentLoader.js'; // Importa funções de contentLoader
+// public/js/detailPage.js - OPÇÃO B
+import { marked } from 'marked'; // Importa marked como um módulo
+import { fetchData, formatDate } from './contentLoader.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const type = urlParams.get('tipo'); // Ex: 'estudos' ou 'artigos'
-    const slug = urlParams.get('slug'); // O slug do item
+    const type = urlParams.get('tipo');
+    const slug = urlParams.get('slug');
 
     const detailContentContainer = document.getElementById('detail-content');
     const pageTitleElement = document.getElementById('page-title');
@@ -35,8 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Converte o corpo do Markdown para HTML
-    const contentHtml = marked(item.body || ''); // Usa marked.js para converter Markdown
+    const contentHtml = marked(item.body || ''); // marked agora é importado
 
     let detailHtml = `
         <article>
@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     detailContentContainer.innerHTML = detailHtml;
     if (pageTitleElement) pageTitleElement.textContent = `${item.title} | Martinho S. S. Madureira`;
 
-    // Opcional: Adicionar estilos básicos para imagens dentro do conteúdo
     const imagesInContent = detailContentContainer.querySelectorAll('.detail-body img');
     imagesInContent.forEach(img => {
         img.style.maxWidth = '100%';

@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Detalhe do Conteúdo | Martinho S. S. Madureira</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght=700&display=swap" rel="stylesheet">
 </head>
-    <body>
+<body>
     <header class="main-header">
         <div class="container">
             <h1 class="logo"><a href="index.html">Martinho S. S. Madureira</a></h1>
+            <button class="menu-toggle" aria-label="Abrir Menu">
+                <span class="hamburger"></span><span class="hamburger"></span><span class="hamburger"></span>
+            </button>
             <nav class="main-nav">
                 <ul>
                     <li><a href="index.html">Início</a></li>
@@ -32,28 +36,28 @@
     </main>
 
     <footer class="main-footer">
-        <p>&copy; 2025 Martinho S. S. Madureira. Todos os direitos reservados.</p>
+        <p>© <span id="current-year"></span> Martinho S. S. Madureira. Todos os direitos reservados.</p>
         <div class="social-links">
             <a href="https://www.instagram.com/martinhossmadureira?igsh=bjM2bHUxMTFxc2px" target="_blank">
-                    <img src="../public/images/icons/instagram.png" alt="Instagram">
-                </a>
-                <a href="https://www.tiktok.com/@martinhossmadureira" target="_blank">
-                    <img src="../public/images/icons/tiktok.png" alt="TikTok">
-                </a>
-                <a href="https://www.youtube.com/@martinhossmadureira" target="_blank">
-                    <img src="../public/images/icons/youtube.png" alt="YouTube">
-                <a href="https://wa.me/244927791547" target="_blank">
-                    <img src="../public/images/icons/whatsapp.png" alt="Whatsapp">
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=100083436668190" target="_blank">
-                    <img src="../public/images/icons/facebook.png" alt="Facebook">
-                </a>
-            </div>
+                <img src="images/icons/instagram.png" alt="Instagram">
+            </a>
+            <a href="https://www.tiktok.com/@martinhossmadureira" target="_blank">
+                <img src="images/icons/tiktok.png" alt="TikTok">
+            </a>
+            <a href="http://googleusercontent.com/youtube.com/7" target="_blank">
+                <img src="images/icons/youtube.png" alt="YouTube">
+            </a>
+            <a href="https://wa.me/244927791547" target="_blank">
+                <img src="images/icons/whatsapp.png" alt="Whatsapp">
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=100083436668190" target="_blank">
+                <img src="images/icons/facebook.png" alt="Facebook">
+            </a>
+        </div>
     </footer>
 
-     <script src="js/main.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
     <script src="js/contentLoader.js" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="js/detailPage.js" type="module"></script>
-    </body>
+</body>
 </html>
